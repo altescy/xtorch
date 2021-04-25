@@ -5,10 +5,7 @@ import torch
 from xtorch.modules.activations import ReLU
 from xtorch.modules.feedforward import FeedForward
 from xtorch.modules.multihead_attention import MultiheadAttention
-from xtorch.modules.positional_encoders import (
-    PositionalEncoder,
-    TrigonometricPositionalEncoder,
-)
+from xtorch.modules.positional_encoders import PositionalEncoder
 from xtorch.modules.seq2seq_encoders.seq2seq_encoder import Seq2seqEncoder
 
 
@@ -35,9 +32,7 @@ class SelfAttentiveSeq2seqEncoder(Seq2seqEncoder):  # type: ignore
         self._output_dim = output_dim or hidden_dim
         self._feedforward_dim = feedforward_dim or self._hidden_dim
         self._feedforward_num_layers = feedforward_num_layers
-        self._positional_encoder = (
-            positional_encoder or TrigonometricPositionalEncoder()
-        )
+        self._positional_encoder = positional_encoder
 
         self._input_linear_layer = torch.nn.Linear(self._input_dim, self._hidden_dim)
         self._multihead_attentions = torch.nn.ModuleList(
